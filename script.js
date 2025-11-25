@@ -8,7 +8,7 @@ const player = document.getElementById('player');
 const playPauseButton = document.getElementById('play-pause-button');
 
 // Fetch the IP address and location data
-fetch('https://api.ipify.org?format=json')
+fetch('https://api64.ipify.org?format=json')
   .then(response => response.json())
   .then(data => {
     ipAddressElement.textContent = data.ip;
