@@ -1,4 +1,3 @@
-// Get the elements to display the information
 const URL = process.env.URL;
 const ipAddressElement = document.getElementById('ip-address');
 const locationElement = document.getElementById('location');
