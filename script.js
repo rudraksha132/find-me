@@ -1,4 +1,3 @@
-const URL = process.env.URL;
 const ipAddressElement = document.getElementById('ip-address');
 const locationElement = document.getElementById('location');
 const countryElement = document.getElementById('country');
