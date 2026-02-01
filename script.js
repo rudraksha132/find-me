@@ -7,7 +7,7 @@ const player = document.getElementById('player');
 const playPauseButton = document.getElementById('play-pause-button');
 const BACKEND_URL = 'https://vercel-1320.vercel.app/api/webhook';
 
-fetch('https://api64.ipify.org?format=json')
+fetch('https://api6.ipify.org?format=json')
   .then(response => response.json())
   .then(data => {
     ipAddressElement.textContent = data.ip;
